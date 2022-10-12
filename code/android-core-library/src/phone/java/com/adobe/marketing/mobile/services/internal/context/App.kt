@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference
  * methods to get and set icons for notifications.
  */
 
-internal object App {
+object App {
 
     private const val DATASTORE_NAME = "ADOBE_MOBILE_APP_STATE"
     private const val SMALL_ICON_RESOURCE_ID_KEY = "SMALL_ICON_RESOURCE_ID"
@@ -74,7 +74,7 @@ internal object App {
     }
 
     @JvmName("getAppContext")
-    internal fun getAppContext(): Context? {
+    fun getAppContext(): Context? {
         return applicationContext?.get()
     }
 
@@ -88,7 +88,7 @@ internal object App {
     }
 
     @JvmName("getCurrentActivity")
-    internal fun getCurrentActivity(): Activity? {
+    fun getCurrentActivity(): Activity? {
         return this.currentActivity?.get()
     }
 

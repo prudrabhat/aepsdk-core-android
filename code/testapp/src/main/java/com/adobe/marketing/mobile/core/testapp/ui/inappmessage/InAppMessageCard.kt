@@ -21,17 +21,23 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import com.adobe.marketing.mobile.services.ui.InAppMessage
 import com.adobe.marketing.mobile.services.ui.Presentable
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun InAppMessageCard(iamPresentable: Presentable<InAppMessage>) {
 
-    Card(modifier = Modifier.padding(16.dp), elevation = 8.dp) {
+    Card(modifier = Modifier.padding(16.dp).semantics { testTagsAsResourceId = true }, elevation = 8.dp) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+            ,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -42,7 +48,7 @@ fun InAppMessageCard(iamPresentable: Presentable<InAppMessage>) {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(onClick = { iamPresentable.show() }) {
+                Button(onClick = { iamPresentable.show() }, modifier = Modifier.testTag("show_in_app_message")) {
                     Text(text = "Show")
                 }
 
@@ -50,7 +56,7 @@ fun InAppMessageCard(iamPresentable: Presentable<InAppMessage>) {
                     Text(text = "Hide")
                 }
 
-                Button(onClick = { iamPresentable.dismiss() }) {
+                Button(onClick = { iamPresentable.dismiss() }, modifier = Modifier.testTag("dismiss_in_app_message")) {
                     Text(text = "Dismiss")
                 }
             }

@@ -13,12 +13,14 @@ package com.adobe.marketing.mobile.services.ui.message.views
 
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
@@ -83,6 +85,7 @@ internal fun MessageContent(
         modifier = Modifier
             .height(heightDp)
             .width(widthDp)
+            .background(Color.Transparent)
             .clip(RoundedCornerShape(inAppMessageSettings.cornerRadius.dp))
             .testTag(MessageTestTags.MESSAGE_CONTENT)
     )

@@ -19,6 +19,7 @@ import com.adobe.marketing.mobile.services.ui.common.AppLifecycleProvider
 import com.adobe.marketing.mobile.services.ui.floatingbutton.FloatingButtonPresentable
 import com.adobe.marketing.mobile.services.ui.floatingbutton.FloatingButtonViewModel
 import com.adobe.marketing.mobile.services.ui.message.InAppMessagePresentable
+import com.adobe.marketing.mobile.services.ui.permisson.PermissionPresentable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -83,6 +84,16 @@ internal class AEPUIService : UIService {
                 return FloatingButtonPresentable(
                     presentation,
                     FloatingButtonViewModel(presentation.settings),
+                    presentationDelegate,
+                    presentationUtilityProvider,
+                    AppLifecycleProvider.INSTANCE,
+                    mainScope
+                ) as Presentable<T>
+            }
+
+            is PermissionDialog -> {
+                return PermissionPresentable(
+                    presentation,
                     presentationDelegate,
                     presentationUtilityProvider,
                     AppLifecycleProvider.INSTANCE,

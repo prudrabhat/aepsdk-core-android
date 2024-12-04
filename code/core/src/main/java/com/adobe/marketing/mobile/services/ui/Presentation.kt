@@ -19,6 +19,8 @@ import com.adobe.marketing.mobile.services.ui.floatingbutton.FloatingButtonSetti
 import com.adobe.marketing.mobile.services.ui.message.InAppMessageEventHandler
 import com.adobe.marketing.mobile.services.ui.message.InAppMessageEventListener
 import com.adobe.marketing.mobile.services.ui.message.InAppMessageSettings
+import com.adobe.marketing.mobile.services.ui.permission.PermissionDialogEventListener
+import com.adobe.marketing.mobile.services.ui.permission.PermissionDialogSettings
 import java.util.UUID
 
 /**
@@ -78,3 +80,8 @@ class Alert(
     val settings: AlertSettings,
     val eventListener: AlertEventListener
 ) : Presentation<Alert>(eventListener)
+
+class PermissionDialog(
+    val settings: PermissionDialogSettings,
+    val eventListener: PermissionDialogEventListener
+) : Presentation<PermissionDialog>(eventListener)

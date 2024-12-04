@@ -30,6 +30,8 @@ import com.adobe.marketing.mobile.core.testapp.ui.floatingbutton.FloatingButtonC
 import com.adobe.marketing.mobile.core.testapp.ui.floatingbutton.FloatingButtonCreator
 import com.adobe.marketing.mobile.core.testapp.ui.inappmessage.InAppMessageCard
 import com.adobe.marketing.mobile.core.testapp.ui.inappmessage.InAppMessageCreator
+import com.adobe.marketing.mobile.core.testapp.ui.permission.PermissionDialogCreator
+import com.adobe.marketing.mobile.core.testapp.ui.permission.PermissionMessageCard
 import com.adobe.marketing.mobile.services.HttpMethod
 import com.adobe.marketing.mobile.services.NetworkRequest
 import com.adobe.marketing.mobile.services.ServiceProvider
@@ -38,6 +40,8 @@ val inAppMessage = InAppMessageCreator.create()
 val alert = AlertCreator.create()
 val floatingButton =
     FloatingButtonCreator(ServiceProvider.getInstance().appContextService.applicationContext!!).create()
+
+val permissionDialog = PermissionDialogCreator.create()
 
 @Composable
 fun ServicesView(navController: NavHostController) {
@@ -52,6 +56,8 @@ fun ServicesView(navController: NavHostController) {
         InAppMessageCard(iamPresentable = inAppMessage)
         AlertCard(alertPresentable = alert)
         FloatingButtonCard(floatingButtonPresentable = floatingButton)
+        PermissionMessageCard(permissionPresentable = permissionDialog)
+
     }
 }
 

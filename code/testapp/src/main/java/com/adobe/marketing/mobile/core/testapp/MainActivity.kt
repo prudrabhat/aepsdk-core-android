@@ -13,6 +13,7 @@ package com.adobe.marketing.mobile.core.testapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -26,6 +27,7 @@ import com.adobe.marketing.mobile.core.testapp.ui.theme.AEPSDKCoreAndroidTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             AEPSDKCoreAndroidTheme {
                 // A surface container using the 'background' color from the theme

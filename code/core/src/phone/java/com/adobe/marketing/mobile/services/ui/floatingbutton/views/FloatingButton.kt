@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -88,6 +89,7 @@ internal fun FloatingButton(
     // The draggable area for the floating button
     Box(
         modifier = Modifier
+            .statusBarsPadding()
             .height(heightDp.value)
             .width(widthDp.value)
             .background(Color.Transparent)

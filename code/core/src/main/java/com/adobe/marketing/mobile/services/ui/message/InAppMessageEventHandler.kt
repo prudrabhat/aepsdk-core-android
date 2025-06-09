@@ -34,4 +34,16 @@ interface InAppMessageEventHandler {
      * @param callback the callback to be invoked with the result of the javascript execution
      */
     fun evaluateJavascript(jsContent: String, callback: AdobeCallback<String>)
+
+    /**
+     * Registers a Javascript interface to the {@link WebView} associated with the InAppMessage
+     * presentation. This is an alternative to the [handleJavascriptMessage] method and can be used
+     * when the implementer requires registering a Javascript interface with multiple methods
+     * and is able to handle the invocations internally.
+     *
+     * @param handlerName the name of the handler to register
+     * @param javascriptInterface the Javascript interface to be registered. Caller is responsible for ensuring
+     * that the interface methods are annotated with [JavascriptInterface]
+     */
+    fun registerJavascriptBridge(handlerName: String, javascriptInterface: Any)
 }

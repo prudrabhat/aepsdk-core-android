@@ -11,6 +11,7 @@
 
 package com.adobe.marketing.mobile.services.ui.message
 
+import android.annotation.SuppressLint
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import androidx.annotation.MainThread
@@ -30,6 +31,7 @@ import java.net.URLDecoder
  */
 internal class DefaultInAppMessageEventHandler internal constructor(
     private val scriptHandlers: MutableMap<String, WebViewJavascriptInterface>,
+    private val interfaceHandlers: MutableMap<String, Any> = mutableMapOf(),
     private val mainScope: CoroutineScope
 ) : InAppMessageEventHandler {
     companion object {
@@ -110,11 +112,37 @@ internal class DefaultInAppMessageEventHandler internal constructor(
         }
     }
 
+    @SuppressLint("JavascriptInterface") // The linter cannot see through the method annotation of the "Any" interface
+    override fun registerJavascriptBridge(handlerName: String, javascriptInterface: Any) {
+        interfaceHandlers[handlerName] = javascriptInterface
+
+        Log.debug(
+            ServiceConstants.LOG_TAG,
+            LOG_SOURCE,
+            "Adding javascript interface for handler: $handlerName"
+        )
+
+        mainScope.launch {
+            val activeWebView = webView.get()
+            if (activeWebView == null) {
+                Log.warning(
+                    ServiceConstants.LOG_TAG,
+                    LOG_SOURCE,
+                    "Web view is null. Cannot add javascript interface."
+                )
+                return@launch
+            }
+            activeWebView.addJavascriptInterface(javascriptInterface, handlerName)
+        }
+
+    }
+
     /**
      * Called when the web view associated with the in-app message is reset.
      * This will re-add all the javascript interfaces to the new web view.
      * @param webView the new web view associated with the in-app message
      */
+    @SuppressLint("JavascriptInterface") // The linter cannot see through the method annotation of the "Any" interface
     @MainThread
     internal fun onNewWebView(webView: WebView?) {
         Log.debug(ServiceConstants.LOG_TAG, LOG_SOURCE, "Internal web view was reset.")
@@ -130,6 +158,17 @@ internal class DefaultInAppMessageEventHandler internal constructor(
                     "Re-adding javascript interface for handler: $handlerName"
                 )
                 it.addJavascriptInterface(javascriptInterface, handlerName)
+            }
+
+            // re-add all the interface handlers
+            interfaceHandlers.forEach { (interfaceName, javascriptInterface) ->
+                Log.debug(
+                    ServiceConstants.LOG_TAG,
+                    LOG_SOURCE,
+                    "Re-adding javascript interface for handler: $interfaceName"
+                )
+                it.addJavascriptInterface(javascriptInterface, interfaceName)
+
             }
         }
     }
